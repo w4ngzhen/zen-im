@@ -1,0 +1,11 @@
+{
+  "name": "zen-im",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "w4ngzhen <w4ngzhen@hotmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

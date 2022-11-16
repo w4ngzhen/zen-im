@@ -1,0 +1,8 @@
+{
+  "name": "@zen-im/client-core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "w4ngzhen",
+  "license": "MIT",
+  "private": false
+}
