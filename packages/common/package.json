@@ -1,0 +1,15 @@
+{
+  "name": "@zen-im/common",
+  "version": "1.0.0",
+  "author": "w4ngzhen",
+  "license": "MIT",
+  "types": "dist/@types/index.d.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "yarn build"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  }
+}
