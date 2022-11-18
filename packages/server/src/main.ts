@@ -18,11 +18,9 @@ function setupSwagger(app: INestApplication) {
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-
     app.useGlobalInterceptors(new ResponseInterceptor());
-
+    app.enableCors();
     setupSwagger(app);
-
     await app.listen(9999);
 }
 

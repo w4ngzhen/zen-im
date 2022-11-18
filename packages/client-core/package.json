@@ -1,12 +1,14 @@
 {
   "name": "@zen-im/client-core",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "w4ngzhen",
   "license": "MIT",
   "private": false,
+  "types": "dist/@types/index.d.ts",
+  "main": "dist/zen-im-client-core.umd.js",
   "scripts": {
-    "build": "tsc"
+    "build:types": "tsc --watch",
+    "build": "webpack --config webpack.config.js --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
