@@ -1,5 +1,5 @@
 import {NestFactory} from '@nestjs/core';
-import {AppModule} from './app.module';
+import {AppModule} from './module/app.module';
 import {ResponseInterceptor} from "./interceptor/response.interceptor";
 import {INestApplication} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
@@ -21,7 +21,7 @@ async function bootstrap() {
     app.useGlobalInterceptors(new ResponseInterceptor());
     app.enableCors();
     setupSwagger(app);
-    await app.listen(9999);
+    await app.listen(9090);
 }
 
 bootstrap();

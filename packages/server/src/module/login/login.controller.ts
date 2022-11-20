@@ -1,6 +1,6 @@
 import {Body, Controller, Post, Query} from '@nestjs/common';
 import {UserLoginByPasswordReq, UserLoginResp} from "@zen-im/common/dist/@types/api/login";
-import {LoginService} from "../service/login.service";
+import {LoginService} from "./login.service";
 
 @Controller('login')
 export class LoginController {

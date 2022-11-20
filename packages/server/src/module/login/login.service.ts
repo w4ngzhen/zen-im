@@ -7,9 +7,10 @@ export class LoginService {
         userId: string,
         password: string
     ): Promise<UserLoginResp> {
+
         return {
             token: `${userId}_${password}`,
-            wsAddress: 'http://localhost'
+            wsAddress: 'ws://localhost:9999'
         }
     }
 }
