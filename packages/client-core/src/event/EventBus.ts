@@ -9,9 +9,9 @@ export abstract class EventBus {
         console.debug('创建一个事件总线对象');
     }
 
-    abstract emit(eventName: string, ...args: any[]): void;
+    abstract emit(eventName: string, eventData?: any): void;
 
-    abstract on(eventName: string, listener: (...args: any[]) => void): void;
+    abstract on(eventName: string, listener: (eventData?: any) => void): void;
 }
 
 /**
@@ -21,35 +21,35 @@ export class EventBusBaseRxJs extends EventBus {
 
     private _subject: Subject<{
         eventName: string;
-        data: any;
+        eventData: any;
     }>;
 
     constructor() {
         super();
         this._subject = new Subject<{
             eventName: string;
-            data: any;
+            eventData: any;
         }>();
     }
 
-    emit(eventName: string, ...args: any[]): void {
+    emit(eventName: string, eventData: any): void {
         console.debug('emit event: ' + eventName);
         this._subject.next({
             eventName,
-            data: args
+            eventData
         })
     }
 
-    on(eventName: string, listener: (...args: any[]) => void): void {
-        console.debug('on event: ' + eventName);
+    on(eventName: string, listener: (eventData: any) => void): void {
+        console.debug('add event listener: ' + eventName);
         this._subject.subscribe(ev => {
-            const {eventName: evName, data} = ev;
-            if (eventName !== evName) {
+            const {eventName: _eventName, eventData: _eventData} = ev;
+            if (eventName !== _eventName) {
                 return;
             }
             try {
-                console.debug('prepare trigger event: ' + eventName);
-                listener(data);
+                console.debug(`event "${eventName}" trigger`, _eventData);
+                listener(_eventData);
             } catch (e) {
                 console.error(`event ${eventName} handle failed.`, e);
             }

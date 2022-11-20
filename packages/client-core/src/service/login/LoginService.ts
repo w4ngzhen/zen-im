@@ -19,8 +19,12 @@ export class LoginService extends Service {
             userId,
             password
         }).then(({token, wsAddress}) => {
-            console.debug('loginCheckSuccess', token, wsAddress);
-            this.eventBus.emit(LoginEventType.loginCheckSuccess, token, wsAddress);
+            console.debug('loginCheckSuccess');
+            this.eventBus.emit(LoginEventType.loginCheckSuccess, {
+                userId,
+                token,
+                wsAddress
+            });
         }, () => {
             this.eventBus.emit(LoginEventType.loginFail);
         })

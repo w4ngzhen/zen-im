@@ -7,10 +7,10 @@
   "types": "dist/@types/index.d.ts",
   "main": "dist/zen-im-client-core.umd.js",
   "scripts": {
-    "dev:types": "tsc --watch",
-    "dev:dist": "webpack --config webpack.config.js --watch",
-    "build:types": "tsc",
-    "build:dist": "webpack --config webpack.config.js"
+    "dev:client-core-types": "tsc --watch",
+    "dev:client-core-dist": "webpack --config webpack.config.js --watch",
+    "build:client-core-types": "tsc",
+    "build:client-core-dist": "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
