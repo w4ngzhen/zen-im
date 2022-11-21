@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {ApiResponse} from "@zen-im/common";
+import {ServerResponseWrapper} from "@zen-im/common";
 
 
 class ApiManager {
@@ -30,14 +30,14 @@ class ApiManager {
                 // 直接提取data
                 const {
                     data
-                }: ApiResponse = originResponse.data;
+                }: ServerResponseWrapper = originResponse.data;
                 return data;
             }, err => {
                 // 进入该回掉，默认总是非1/2**返回码
                 const {
                     returnCode,
                     errorMessage
-                }: ApiResponse = err.data;
+                }: ServerResponseWrapper = err.data;
                 throw new Error(`[${returnCode}]${errorMessage}`);
             })
         this._initialed = true;

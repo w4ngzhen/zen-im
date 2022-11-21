@@ -1,4 +1,4 @@
-export interface ApiResponse {
+export interface ServerResponseWrapper {
     returnCode: string;
     errorMessage?: string;
     data?: any;

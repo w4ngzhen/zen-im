@@ -1,6 +1,6 @@
 import {CallHandler, ExecutionContext, NestInterceptor} from "@nestjs/common";
 import {map, Observable} from "rxjs";
-import {ApiResponse} from "@zen-im/common";
+import {ServerResponseWrapper} from "@zen-im/common";
 import {SUCCESS} from "../return-code";
 
 /**
@@ -16,7 +16,7 @@ export class HttpServiceResponseInterceptor implements NestInterceptor {
         return next.handle().pipe(map(data => {
             console.debug('ResponseInterceptor', data);
             // 进入该拦截器，说明没有异常，使用成功返回
-            const resp: ApiResponse = {
+            const resp: ServerResponseWrapper = {
                 returnCode: SUCCESS.code,
                 data: data
             };

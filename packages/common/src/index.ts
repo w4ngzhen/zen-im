@@ -7,5 +7,5 @@ export {
 } from './message/MessageType';
 
 export type {
-    ApiResponse
-} from './api/ApiResponse';
+    ServerResponseWrapper
+} from './api/ServerResponseWrapper';
