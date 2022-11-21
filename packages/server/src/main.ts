@@ -5,7 +5,6 @@ import {INestApplication} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 import {HttpServiceExceptionFilter} from "./base/filter/http-service-exception.filter";
 
-
 function setupSwagger(app: INestApplication) {
     const config = new DocumentBuilder()
         .setTitle('zen-im swagger')
