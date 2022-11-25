@@ -7,8 +7,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build:common": "tsc",
-    "dev:common": "tsc --watch",
-    "postinstall": "yarn build:common"
+    "dev:common": "tsc --watch"
   },
   "devDependencies": {
     "typescript": "^4.9.3"
