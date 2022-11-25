@@ -8,7 +8,7 @@
   "scripts": {
     "build:common": "tsc",
     "dev:common": "tsc --watch",
-    "postinstall": "yarn build"
+    "postinstall": "yarn build:common"
   },
   "devDependencies": {
     "typescript": "^4.9.3"
