@@ -11,7 +11,7 @@ import * as dayjs from "dayjs";
 import {UseFilters, UseInterceptors} from "@nestjs/common";
 import {WsServiceResponseInterceptor} from "../../base/interceptor/ws-service-response.interceptor";
 import {ImException} from "../../base/im-exception";
-import {ERR_REQUEST_FIELD_ERROR} from "../../base/return-code";
+import {ERR_REQUEST_FIELD_EMPTY} from "../../base/return-code";
 import {WsServiceExceptionFilter} from "../../base/filter/ws-service-exception.filter";
 import * as _ from 'lodash';
 
@@ -29,7 +29,7 @@ export class WsGateway {
         console.debug('on client heart beat', req);
         const {userId} = req;
         if (_.isEmpty(userId)) {
-            throw ImException.create(ERR_REQUEST_FIELD_ERROR, 'user id is empty.');
+            throw ImException.create(ERR_REQUEST_FIELD_EMPTY, 'user id is empty.');
         }
         return {
             serverTime: dayjs().format('YYYY-MM-DD HH:mm:ss.SSS')
