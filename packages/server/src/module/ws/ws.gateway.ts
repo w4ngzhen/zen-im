@@ -11,9 +11,9 @@ import * as dayjs from "dayjs";
 import {UseFilters, UseInterceptors} from "@nestjs/common";
 import {WsServiceResponseInterceptor} from "../../base/interceptor/ws-service-response.interceptor";
 import {ImException} from "../../base/im-exception";
-import {ERR_REQUEST_FIELD_EMPTY} from "../../base/return-code";
 import {WsServiceExceptionFilter} from "../../base/filter/ws-service-exception.filter";
 import * as _ from 'lodash';
+import {ERR_REQUEST_FIELD_EMPTY} from "@zen-im/common";
 
 // WebSocket统一成功响应拦截器
 @UseInterceptors(new WsServiceResponseInterceptor())

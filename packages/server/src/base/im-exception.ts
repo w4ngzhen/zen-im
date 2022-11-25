@@ -1,4 +1,4 @@
-import {ReturnCode} from "./return-code";
+import {ReturnCode} from "@zen-im/common";
 
 export class ImException {
     private readonly _errorCode: ReturnCode;

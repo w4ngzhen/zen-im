@@ -1,7 +1,6 @@
 import {CallHandler, ExecutionContext, NestInterceptor} from "@nestjs/common";
 import {map, Observable} from "rxjs";
-import {ServerResponseWrapper} from "@zen-im/common";
-import {SUCCESS} from "../return-code";
+import {ServerResponseWrapper, SUCCESS} from "@zen-im/common";
 
 /**
  * WebSocket服务响应拦截器

@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {UserLoginResp} from "@zen-im/common/dist/@types/api/login";
 import {dataUsers} from "../../data/user";
 import {ImException} from "../../base/im-exception";
-import {ERR_NOT_FOUND} from "../../base/return-code";
+import {ERR_NOT_FOUND} from "@zen-im/common";
 
 @Injectable()
 export class LoginService {
