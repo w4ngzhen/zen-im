@@ -26,3 +26,5 @@ export const SUCCESS = new ReturnCode('SUC', '00000', 200);
 export const ERR_NOT_FOUND = new ReturnCode('ERR', '40400', 404);
 
 export const ERR_REQUEST_FIELD_EMPTY = new ReturnCode('ERR', '40001', 400);
+
+export const ERR_AUTH_ERROR = new ReturnCode('ERR', '40100', 401);

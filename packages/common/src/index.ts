@@ -14,5 +14,6 @@ export {
     ReturnCode,
     SUCCESS,
     ERR_NOT_FOUND,
-    ERR_REQUEST_FIELD_EMPTY
+    ERR_REQUEST_FIELD_EMPTY,
+    ERR_AUTH_ERROR
 } from './base/ReturnCode'

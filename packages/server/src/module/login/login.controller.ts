@@ -1,4 +1,4 @@
-import {Body, Controller, Post, Query} from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import {UserLoginByPasswordReq, UserLoginResp} from "@zen-im/common/dist/@types/api/login";
 import {LoginService} from "./login.service";
 
@@ -13,8 +13,8 @@ export class LoginController {
     async loginByPassword(@Body() req: UserLoginByPasswordReq): Promise<UserLoginResp> {
         const {
             userId,
-            password
+            userPassword
         } = req;
-        return this.loginService.loginUserByPassword(userId, password);
+        return this.loginService.loginUserByPassword(userId, userPassword);
     }
 }

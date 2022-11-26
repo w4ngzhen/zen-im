@@ -1,6 +1,6 @@
 export type UserLoginByPasswordReq = {
     userId: string;
-    password: string;
+    userPassword: string;
 }
 export type UserLoginResp = {
     token: string;
