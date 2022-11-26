@@ -32,7 +32,7 @@ export class HttpServiceExceptionFilter implements ExceptionFilter {
             // 其他错误
             responseWrapper = {
                 returnCode: 'IM9999',
-                errorMessage: 'server unknown error.',
+                errorMessage: exception.message
             };
             httpStatusCode = 500;
 
