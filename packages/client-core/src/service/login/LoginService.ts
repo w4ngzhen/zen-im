@@ -17,7 +17,7 @@ export class LoginService extends Service {
         // 进行登陆验证以后，构建登陆用户信息
         return userLoginByPassword({
             userId,
-            password
+            userPassword: password
         }).then(({token, wsAddress}) => {
             console.debug('loginCheckSuccess');
             this.eventBus.emit(LoginEventType.loginCheckSuccess, {
