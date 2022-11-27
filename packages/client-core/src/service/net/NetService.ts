@@ -3,6 +3,8 @@ import {io} from 'socket.io-client';
 import {EventBus} from "../../event/EventBus";
 import {LoginEventType} from "../../event/type/LoginEventType";
 import {WsHeartBeatReq, WsHeartBeatResp} from "@zen-im/common/dist/@types/ws/type/HeartBeat";
+import {socketEmitAsync} from "./utils";
+import {NetEventType} from "../../event/type/NetEventType";
 
 export class NetService extends Service {
 
@@ -34,22 +36,30 @@ export class NetService extends Service {
         });
         socket.on('connect', () => {
             // ws连接完成后，启动心跳
-
             const startOnceHeartBeat = () => {
                 if (socket.disconnected) {
-                    // 终止心跳
+                    console.debug('socket disconnected, stop heart beat.');
                     return;
                 }
-                const wsHeartBeatReq: WsHeartBeatReq = {
-                    userId
-                }
-                socket.emit('im-heart-beat', wsHeartBeatReq, (resp: WsHeartBeatResp) => {
-                    console.debug('received heart beat', resp);
-                    // 收到响应后，启动下一次心跳
-                    setTimeout(() => {
+                setTimeout(async () => {
+                    const wsHeartBeatReq: WsHeartBeatReq = {
+                        userId
+                    }
+                    try {
+                        const resp = await socketEmitAsync<WsHeartBeatReq, WsHeartBeatResp>(
+                            socket,
+                            'im-heart-beat',
+                            wsHeartBeatReq
+                        ) as WsHeartBeatResp;
+                        console.debug('received heart beat response: ', resp);
+                        // 正常收到响应后，启动下一次心跳
                         startOnceHeartBeat();
-                    }, 5 * 1000);
-                });
+                    } catch (e) {
+                        console.error('heart beat check error', e)
+                        // 未正常心跳，暂无重试机制，广播心跳异常
+                        this.eventBus.emit(NetEventType.HeartBeatError)
+                    }
+                }, 5 * 1000);
             }
             startOnceHeartBeat();
 
