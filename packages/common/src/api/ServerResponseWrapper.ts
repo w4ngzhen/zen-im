@@ -1,5 +1,5 @@
-export interface ServerResponseWrapper {
+export interface ServerResponseWrapper<T = any> {
     returnCode: string;
     errorMessage?: string;
-    data?: any;
+    data?: T;
 }
