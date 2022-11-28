@@ -12,12 +12,12 @@ const entitiesPaths = [join(__dirname, '..', '**', '*.po.{ts,js}')]
 @Module({
     imports: [
         TypeOrmModule.forRoot({
-                "type": "mysql",
+                "type": "mysql", // 'mariadb' 同样可用
                 "host": "localhost",
                 "port": 3306,
-                "username": "root",
-                "password": "root",
-                "database": "zen-im",
+                "username": "zen_im_user",
+                "password": "zen_im_password",
+                "database": "zen_im_db",
                 "entities": entitiesPaths,
                 "synchronize": true
             }
