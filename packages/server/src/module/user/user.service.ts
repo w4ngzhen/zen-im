@@ -17,7 +17,9 @@ export class UserService {
             return null;
         }
         const userDto: UserDto = {
-            ...userPo
+            id: userPo.id,
+            username: userPo.username,
+            createTime: userPo.createTime
         }
         return userDto;
     }
