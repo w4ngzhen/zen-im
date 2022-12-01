@@ -32,15 +32,6 @@ export class ChatSessionService extends Service {
         this._currentChatSessionId = _.isEmpty(chatSessionId) ? '' : chatSessionId;
     }
 
-
-    sendMessage(message: Message) {
-        const chatSession = this.getChatSessionById(message.chatSessionId);
-        if (!chatSession) {
-            return;
-        }
-        // todo 使用网络Manager发送数据
-    }
-
     private getChatSessionById(sessionId: string) {
         return _.isEmpty(sessionId)
             ? undefined

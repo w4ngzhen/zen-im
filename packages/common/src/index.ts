@@ -2,9 +2,19 @@ export type {
     Message
 } from './message/Message';
 
-export {
-    MessageType
-} from './message/MessageType';
+export type {
+    MessageContent,
+    MessageContentType
+} from './message/MessageContent';
+
+export type {
+    MessageChatType
+} from './message/MessageChatType';
+
+export type {
+    MessageMark,
+    MessageMarkType
+} from './message/MessageMark'
 
 export type {
     ServerResponseWrapper

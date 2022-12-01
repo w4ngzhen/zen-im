@@ -73,5 +73,4 @@ export class NetService extends Service {
         });
         socket.connect();
     }
-
 }
