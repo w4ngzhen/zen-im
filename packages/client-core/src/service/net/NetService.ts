@@ -35,32 +35,38 @@ export class NetService extends Service {
             transports: ['websocket']
         });
         socket.on('connect', () => {
+
+            console.debug('websocket instance connect');
+
             // ws连接完成后，启动心跳
-            const startOnceHeartBeat = () => {
+            const startOnceHeartBeat = (timeout?: number) => {
                 if (socket.disconnected) {
                     console.debug('socket disconnected, stop heart beat.');
                     return;
                 }
                 setTimeout(async () => {
+                    console.debug('start client heart beat')
                     const wsHeartBeatReq: WsHeartBeatReq = {
                         userId
                     }
                     try {
+                        console.debug('heart beat request');
                         const resp = await socketEmitAsync<WsHeartBeatReq, WsHeartBeatResp>(
                             socket,
                             'im-heart-beat',
                             wsHeartBeatReq
                         ) as WsHeartBeatResp;
                         console.debug('received heart beat response: ', resp);
-                        // 正常收到响应后，启动下一次心跳
-                        startOnceHeartBeat();
+                        // 正常收到响应后，启动下一次心跳（此时每过5s进行一次心跳
+                        startOnceHeartBeat(5 * 1000);
                     } catch (e) {
                         console.error('heart beat check error', e)
                         // 未正常心跳，暂无重试机制，广播心跳异常
                         this.eventBus.emit(NetEventType.HeartBeatError)
                     }
-                }, 5 * 1000);
+                }, timeout);
             }
+            // 第一次心跳需要立刻发出
             startOnceHeartBeat();
 
             this.eventBus.emit(LoginEventType.loginConnected);
