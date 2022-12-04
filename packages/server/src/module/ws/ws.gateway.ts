@@ -1,19 +1,18 @@
+import {WsHeartBeatReq, WsHeartBeatResp} from '@zen-im/common/dist/@types/ws/type/HeartBeat';
 import {
-    WsHeartBeatReq,
-    WsHeartBeatResp
-} from '@zen-im/common/dist/@types/ws/type/HeartBeat';
-import {
+    ConnectedSocket,
     MessageBody,
+    OnGatewayConnection,
+    OnGatewayDisconnect,
+    OnGatewayInit,
     SubscribeMessage,
-    WebSocketGateway,
+    WebSocketGateway
 } from '@nestjs/websockets';
-import * as dayjs from "dayjs";
 import {UseFilters, UseInterceptors} from "@nestjs/common";
 import {WsServiceResponseInterceptor} from "../../base/interceptor/ws-service-response.interceptor";
-import {ImException} from "../../base/im-exception";
 import {WsServiceExceptionFilter} from "../../base/filter/ws-service-exception.filter";
-import * as _ from 'lodash';
-import {ERR_REQUEST_FIELD_EMPTY} from "@zen-im/common";
+import {Server, Socket} from 'socket.io'
+import {WsService} from "./ws.service";
 
 // WebSocket统一成功响应拦截器
 @UseInterceptors(new WsServiceResponseInterceptor())
@@ -23,16 +22,47 @@ import {ERR_REQUEST_FIELD_EMPTY} from "@zen-im/common";
     transports: ['websocket'],
     cors: '*'
 })
-export class WsGateway {
+export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+
+    constructor(private readonly wsService: WsService) {
+    }
+
+    /**
+     * OnGatewayInit.afterInit
+     * WS网关初始化完成
+     * @param server
+     */
+    afterInit(server: Server) {
+        console.debug('WsGateway afterInit')
+        this.wsService.afterInit(server);
+    }
+
+    /**
+     * OnGatewayConnection.handleConnection
+     * 连接建立时的处理回调
+     * @param client 具体平台Socket对象，本项目为socket.io的Socket实例
+     * @param args
+     */
+    handleConnection(client: Socket, ...args: any[]) {
+        console.debug(`WsGateway websocket connection [${client.id}] connect`);
+        this.wsService.handleConnection(client, args);
+    }
+
+    /**
+     * OnGatewayDisconnect.handleDisconnect
+     * socket断联时触发
+     * @param client 具体平台Socket对象，本项目为socket.io的Socket实例
+     */
+    handleDisconnect(client: Socket): any {
+        console.debug(`WsGateway websocket connection [${client.id}] disconnect`);
+        this.wsService.handleDisconnect(client);
+    }
+
     @SubscribeMessage('im-heart-beat')
-    handleHeartBeat(@MessageBody() req: WsHeartBeatReq): WsHeartBeatResp {
-        console.debug('on client heart beat', req);
-        const {userId} = req;
-        if (_.isEmpty(userId)) {
-            throw ImException.create(ERR_REQUEST_FIELD_EMPTY, 'user id is empty.');
-        }
-        return {
-            serverTime: dayjs().format('YYYY-MM-DD HH:mm:ss.SSS')
-        };
+    handleHeartBeat(@MessageBody() req: WsHeartBeatReq,
+                    @ConnectedSocket() client: Socket): WsHeartBeatResp {
+        const clientId = client.id;
+        console.debug(`on client heart beat [${clientId}]`, req);
+        return this.wsService.handleHeartBeat(req, clientId);
     }
 }
